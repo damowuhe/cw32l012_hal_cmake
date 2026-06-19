@@ -41,6 +41,28 @@ cmake --build build/Debug --target flash
 
 ---
 
+## OpenOCD 配置
+
+`openocd/cw32l012.cfg` 是 CW32L012 的 OpenOCD 目标配置文件，需要复制到 OpenOCD 安装目录：
+
+```bash
+# 复制到 OpenOCD scripts 目录
+cp openocd/cw32l012.cfg <OpenOCD安装路径>/scripts/target/
+```
+
+配置内容（基于用户手册寄存器）：
+
+| 参数 | 值 | 说明 |
+|------|-----|------|
+| CPUTAPID | `0x0BC11477` | Cortex-M0+ SWD ID |
+| Flash | `0x00000000` 64KB | Flash 基址 |
+| RAM 工作区 | `0x20000000` 4KB | 8KB RAM 中分配 |
+| Flash 控制器 | `0x40022000` | CW32L012 Flash 控制器 |
+| 复位后频率 | 24MHz | HSI /4 |
+| DBGMCU | `0x4000402C` | 调试时暂停看门狗/定时器 |
+
+---
+
 ## 示例代码：LED 闪烁 (PC13)
 
 ```c
@@ -193,6 +215,8 @@ cw32l012_hal_cmake/
 ├── Drivers/
 │   ├── CMSIS/cw32l012/          # CMSIS-Core + 设备头文件
 │   └── CW32L0xx_HAL_Driver/     # HAL 库 (30 Inc + 28 Src)
+├── openocd/
+│   └── cw32l012.cfg             # OpenOCD 目标配置文件
 ├── cw32l012_flash.ld            # 链接脚本
 ├── cw32l012.svd                 # SVD 调试寄存器视图
 └── startup_cw32l012x8.s         # 启动汇编
