@@ -1,0 +1,23 @@
+# Build output
+build/
+*.elf
+*.map
+*.hex
+*.bin
+*.o
+*.obj
+*.swp
+*.swo
+*~
+compile_commands.json
+
+# IDE / OS
+.vscode/
+.clangd
+.settings/
+.DS_Store
+Thumbs.db
+*.tmp
+
+# pyOCD (not used)
+pyocd.yml
